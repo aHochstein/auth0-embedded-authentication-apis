@@ -1,3 +1,7 @@
 {
-    "cookieSecret" : "123"
+    "cookieSecret" : "123",
+    "tenantDomain" : "xyz",
+    "databaseConnection" : "",
+    "googleConnection" : "",
+    "clientId" : ""
 }
