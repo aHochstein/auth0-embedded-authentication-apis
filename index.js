@@ -2,6 +2,8 @@ const express = require('express');
 const { engine } = require ('express-handlebars');
 const cookieSession = require('cookie-session');
 const config = require('./config.json');
+const routerAuth = require('./routes/auth');
+
 
 const app = express();
 app.set('view engine', 'hbs');
@@ -24,5 +26,8 @@ app.get('/session', (req, res) => {
     req.session.user = {firstname: 'Andre'};
     res.render('main', {layout : 'index'});
 });
+
+app.use(express.urlencoded({extended: false})); 
+app.use('/', routerAuth);
 
 app.listen(port, () => console.log(`App listening to port ${port}`));
