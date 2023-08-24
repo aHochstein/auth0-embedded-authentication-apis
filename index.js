@@ -19,11 +19,10 @@ app.use(cookieSession({
 
 app.use(express.static('public'))
 app.get('/', (req, res) => {
-    res.render('main', {layout : 'index'});
+    res.render('main', {layout : 'index', user: JSON.stringify(req.session.user)});
 });
 
 app.get('/session', (req, res) => {
-    req.session.user = {firstname: 'Andre'};
     res.render('main', {layout : 'index'});
 });
 

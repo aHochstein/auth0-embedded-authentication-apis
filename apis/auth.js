@@ -1,11 +1,12 @@
 const config = require('../config.json');
 const axios = require('axios');
-const baseUrl = $`https://${config.tenantDomain}/`;
+const querystring = require('querystring');
+const baseUrl = `https://${config.tenantDomain}/`;
 const connection = config.connection;
 const clientId = config.clientId;
 const clientSecret = config.clientSecret;
-const signUpUrl = $`${baseUrl}${connection}/signup`;
-const loginUrl = $`${baseUrl}/oauth/token`;
+const signUpUrl = `${baseUrl}dbconnections/signup`;
+const loginUrl = `${baseUrl}oauth/token`;
 
 
 
@@ -18,12 +19,8 @@ const signUp = async(email,password) => {
             password : password,
             connection : connection
         }
-        axios.post(signUpUrl, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: body
-        });
+        const response = await axios.post(signUpUrl, body);
+        return response.data;      
     }
     catch(e) {
         console.log(e);
@@ -33,18 +30,16 @@ const signUp = async(email,password) => {
 const login = async(email,password) => {
     try {
         const body =  {
-            grant_type: 'password',
+            grant_type: 'http://auth0.com/oauth/grant-type/password-realm',
             client_id : clientId,
             client_secret : clientSecret,
             username : email,
-            password : password
+            password : password,
+            realm: connection
         }
-        axios.post(signUpUrl, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: body
-        });
+        const response = await axios.post(loginUrl, body,{ 
+            headers: {'content-type': 'application/x-www-form-urlencoded'}});
+        return response.data;        
     }
     catch(e) {
         console.log(e);
