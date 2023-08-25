@@ -43,10 +43,18 @@ const login = async(email,password) => {
         }
         const response = await axios.post(loginUrl, body,{ 
             headers: {'content-type': 'application/x-www-form-urlencoded'}});
-        return response.data;        
+        return { mfa_required: false, user: response.data};        
     }
     catch(e) {
         console.log(e);
+        const data = e.response.data;
+        if(data.error === 'mfa_required'); {
+            return {
+                mfa_required : true,
+                mfa_token: data.mfa_token    
+            };
+        }
+        return null;
     }
 }
 
@@ -98,3 +106,4 @@ const getAuthenticators = async(accessToken) => {
 
 module.exports.login = login;
 module.exports.signUp = signUp;
+module.exports.verifyWithOtp = verifyWithOtp;

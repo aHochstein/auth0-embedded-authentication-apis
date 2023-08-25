@@ -1,0 +1,23 @@
+ <div class="row">
+    <h1>MFA - Please Verify your Login</h1>
+ <div class="col-md-6">
+     <form method="post" action="verify-otp">
+        <h2>Verify with OTP</h2>
+        <div class="form-group">
+            <label for="otp">OTP</label>
+            <input type="otp" name="otp" class="form-control" id="otp" aria-describedby="otpHelp" placeholder="Enter OTP">
+        </div>   
+        <button type="submit" class="btn btn-primary">Verify</button>
+        <div class="error-message" style="display: none;"></div>
+    </form>
+ </div>
+  <div class="col-md-6">
+     <form method="post">
+        <h2>Verify with SMS</h2>
+        <button type="submit" class="btn btn-primary">Request</button>
+        <div class="error-message" style="display: none;"></div>
+    </form>
+ </div>
+    
+   
+</div>
